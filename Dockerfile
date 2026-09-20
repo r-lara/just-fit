@@ -3,7 +3,7 @@
 ARG NODE_VERSION=24-alpine
 
 # ---- base -------------------------------------------------------------
-FROM node:${NODE_VERSION} AS base
+FROM node:${NODE_VERSION}-slim AS base
 WORKDIR /app
 
 # ---- build --------------------------------------------------------------
