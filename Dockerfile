@@ -1,9 +1,10 @@
 # syntax=docker/dockerfile:1.7
 
-ARG NODE_VERSION=24-alpine
+# ARG NODE_VERSION=node:24-alpine
+ARG NODE_VERSION=node:22-slim
 
 # ---- base -------------------------------------------------------------
-FROM node:${NODE_VERSION}-slim AS base
+FROM ${NODE_VERSION} AS base
 WORKDIR /app
 
 # ---- build --------------------------------------------------------------
