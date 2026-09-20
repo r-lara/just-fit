@@ -24,7 +24,7 @@ COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
 
 # ---- runtime --------------------------------------------------------------
-FROM node:${NODE_VERSION} AS runtime
+FROM ${NODE_VERSION} AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 
