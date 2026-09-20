@@ -28,7 +28,9 @@ FROM ${NODE_VERSION} AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 
-RUN apk add --no-cache tini
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends tini \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY package.json ./
 COPY --from=prod-deps /app/node_modules ./node_modules
@@ -41,5 +43,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
   CMD node -e "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["node", "dist/main.js"]
